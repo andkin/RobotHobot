@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Visualizacia</title>
+<link rel="stylesheet" href="css2.css">
+<meta charset="utf-8">
+<script src="script3.js"></script>
+</head>
+<body>
+
+<input type="text" placeholder="Розетки" id="getPorts" value="5">
+<input type="text" placeholder="Провода" id="getWires" value="5">
+<input type="submit" value="Proceed" onclick="getter()">
+	<input type="button" value="reload" onclick="location.reload()">
+
+<div id="field">	
+	<div id="ports"></div>
+	<div id="space"></div>
+	<div id="wires"></div>
+</div>
+<div id="holding"></div>
+
+<div id="control">
+	Движение В <input type="text" id="movefrom" value="b"><br>
+	Взять <input type="radio" name="first" checked onchange="RadiobuttonChange(this)" value="take"><br>
+	Положить <input type="radio" name="first" onchange="RadiobuttonChange(this)" value="put"><br>
+	Подключить <input type="radio" name="first" onchange="RadiobuttonChange(this)" value="plug"><br>
+	Отключить <input type="radio" name="first" onchange="RadiobuttonChange(this)" value="unplug"><br>
+	Движение В <input type="text" id="moveto" value="3"><br>
+	Взять <input type="radio" name="second" onchange="RadiobuttonChange(this)" value="take"><br>
+	Положить <input type="radio" name="second" onchange="RadiobuttonChange(this)" value="put"><br>
+	Подключить <input type="radio" name="second" checked onchange="RadiobuttonChange(this)" value="plug"><br>
+	Отключить <input type="radio" name="second" onchange="RadiobuttonChange(this)" value="unplug"><br>
+	<input type="button" value="GO" onclick="handler()"><br>
+	Остановить <input type="button" value="Stop" onclick="clearInterval(timerID1);clearInterval(wait);clearInterval(timerID2); alert('Работа робота приостановленна');"><br>
+	<table style="font:10px Arial">
+	Неопределенный объект <input type="button" value="Unidentified object" onclick="clearInterval(timerID1);clearInterval(wait);clearInterval(timerID2); alert('Внимание! Найден неопознанный объект!'); addObject();"><br>
+	Убрать объект <input type="button" value="remove object" onclick="clearInterval(timerID1);clearInterval(wait);clearInterval(timerID2); removeObject();"><br>
+	<table style="font:10px Arial">
+	<tr>
+	<td>r</td>
+	<td>red</td>
+	</tr>
+	<tr>
+	<td>g</td>
+	<td>green</td>
+	</tr>
+	<tr>
+	<td>b</td>
+	<td>blue</td>
+	</tr>
+	<tr>
+	<td>o</td>
+	<td>orange</td>
+	</tr>
+	<tr>
+	<td>p</td>
+	<td>purple</td>
+	</tr>
+	<tr>
+	<td>y</td>
+	<td>yellow</td>
+	</tr>
+	</table>
+</div>
+
+</body>
+</html>
