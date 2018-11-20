@@ -35,7 +35,12 @@
 	Остановить <input type="button" value="Stop" onclick="clearInterval(timerID1);clearInterval(wait);clearInterval(timerID2); alert('Работа робота приостановленна');"><br>
 	<table style="font:10px Arial">
 	Неопределенный объект <input type="button" value="Unidentified object" onclick="clearInterval(timerID1);clearInterval(wait);clearInterval(timerID2); alert('Внимание! Найден неопознанный объект!'); addObject();"><br>
+
+	Два прерывания с приоритетами <input type="button" value="Double interrupt with priority" onclick="priorityFuckingInterrupt(); "><br>
+
 	Убрать объект <input type="button" value="remove object" onclick="clearInterval(timerID1);clearInterval(wait);clearInterval(timerID2); removeObject();"><br>
+	Приоритет первого прерывания<input type="text" id="interrupt1" value="1"><br>
+	Приоритет прерывания с объектом<input type="text" id="interrupt2" value="2"><br>
 	<table style="font:10px Arial">
 	<tr>
 	<td>r</td>

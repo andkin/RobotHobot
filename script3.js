@@ -58,6 +58,35 @@ function drawField(){
 	
 }
 
+function priorityFuckingInterrupt()
+{
+	let priorityFirstInterrupt = document.getElementById("interrupt1").value;
+	let prioritySecondInterrupt = document.getElementById("interrupt2").value;
+	if (priorityFirstInterrupt < prioritySecondInterrupt){
+		alert('первое прерывание(по кнопке)');
+		clearInterval(timerID1);
+		clearInterval(wait);
+		clearInterval(timerID2);
+		alert('второе прерывание(приоритет первого прерывания больше второго)');
+		addObject();
+	} else {
+		alert('второе прерывание(приоритет второго прерывания бальше первого)');
+		addObject();
+		alert('первое прерывание(по кнопке)');
+		clearInterval(timerID1);
+		clearInterval(wait);
+		clearInterval(timerID2);
+	}
+
+	/*if (priorityFirstInterrupt < prioritySecondInterrupt){
+		clearInterval(timerID1);
+		clearInterval(wait);
+		clearInterval(timerID2);
+	} else {
+		addObject();
+	}*/
+}
+
 	function addObject(){
 		let space = document.getElementById("space");
 		space.appendChild(newObject);
@@ -146,6 +175,7 @@ function move(param, action){
 		}
 	}
 }
+
 
 function take(){
 	let Robostyle = newRobot.style;
