@@ -151,6 +151,7 @@ function addToChain(){
 				theChain[chainBody.childNodes.length-1] = {
 				to:null, action:radios[i].value}
 			}else{
+				chainEntity.innerHTML += radios[i].value;
 				theChain[chainBody.childNodes.length-1] = {
 				to:moveField.value, action:radios[i].value}
 		}
