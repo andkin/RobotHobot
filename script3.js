@@ -7,6 +7,8 @@ holding.style.backgroundColor = "white";
 let colors = ["red","green","blue","orange","purple","yellow"];
 let c = ["r","g","b","o","p","y"];
 
+let timerID1, timerID2, wait;//для анимации
+
 let p=0,w=0;
 let pArr=[],wArr=[];
 
@@ -41,6 +43,8 @@ function drawField(){
 	let newDiv = document.createElement("div");
 		wire.appendChild(newDiv);
 		newDiv.style.background = wArr[i];
+		newDiv.style.backgroundImage = "url(wire.png)";
+		newDiv.style.backgroundSize="100% 100%";
 		newDiv.className = "wire";
 	}
 	//простронство
@@ -58,107 +62,206 @@ function drawField(){
 	
 }
 
-function priorityFuckingInterrupt()
+function priorityInterrupt()
 {
 	let priorityFirstInterrupt = document.getElementById("interrupt1").value;
 	let prioritySecondInterrupt = document.getElementById("interrupt2").value;
 	if (priorityFirstInterrupt < prioritySecondInterrupt){
-		alert('первое прерывание(по кнопке)');
 		clearInterval(timerID1);
 		clearInterval(wait);
 		clearInterval(timerID2);
-		alert('второе прерывание(приоритет первого прерывания больше второго)');
 		addObject();
 	} else {
-		alert('второе прерывание(приоритет второго прерывания бальше первого)');
 		addObject();
-		alert('первое прерывание(по кнопке)');
 		clearInterval(timerID1);
 		clearInterval(wait);
 		clearInterval(timerID2);
 	}
+}
 
-	/*if (priorityFirstInterrupt < prioritySecondInterrupt){
-		clearInterval(timerID1);
-		clearInterval(wait);
-		clearInterval(timerID2);
-	} else {
-		addObject();
-	}*/
+function stopRobot(){
+	clearInterval(timerID1);
+	clearInterval(wait);
+	clearInterval(timerID2); 
 }
 
 	function addObject(){
 		let space = document.getElementById("space");
 		space.appendChild(newObject);
 		newObject.id = "unobj";
-		let Robostyle = newObject.style;
-		Robostyle.top = "50px";
-		Robostyle.right = "200px";
+		let Objstyle = newObject.style;
+		let x,y;
+		x = Math.random()*(2-0)+0;
+		y = Math.random()*(5-0)+0;
+		Objstyle.top = y*100+"px";
+		Objstyle.left = x*100+"px";
 
 	}
 
 	function removeObject() {
 		space.removeChild(newObject);
 	}
+	
+	function isObjectFoundOnTrack(){
+		let rtop = parseFloat(document.getElementById("robot").style.top);
+		let rleft = parseFloat(document.getElementById("robot").style.left);
+		if(document.getElementById("unobj")){
+		let otop = parseFloat(document.getElementById("unobj").style.top);
+		let oleft = parseFloat(document.getElementById("unobj").style.left);
+			//console.log(rtop+" "+otop+" \ "+rleft+" "+oleft);
+		if(Math.abs((rtop)-(otop))<100 && Math.abs((rleft)-(oleft))<100){
+			console.log("%cWARNING!Remove objects from the track!!",'background: #222; color: red');
+			return true;
+		}else{
+			return false;
+		}
+		}
+	}
 
-let Time, Speed = 20;
-let timerID1, timerID2;
-let wait;
+//addChain
+let theChain = [];
+let leftVal = 0, topVal = 0;
+function addToChain(){
+	let radios = document.getElementsByName("first");
+	let moveField = document.getElementById("moveto");
+	let chainBody = document.getElementById("thechain");
+	let chainEntity = document.createElement("div");
+	chainEntity.className = "chainEntity";
+	let col;
+	console.log(moveField.value.length);
+	if(moveField.value.length==0){
+		chainEntity.style.backgroundImage="url(puzzle/white.png)";
+	}else if(isNaN(moveField.value)){
+		for(col=0;col<c.length;col++)
+			if(c[col]==moveField.value){		
+			chainEntity.style.backgroundImage="url(puzzle/"+colors[col]+".png)";
+			chainEntity.innerHTML = "go to "+colors[col]+"<br>and ";
+			}
+	}else {
+		if (moveField.value){
+			chainEntity.style.backgroundImage="url(puzzle/white.png)";
+			chainEntity.innerHTML = "go to "+moveField.value+"<br>and ";
+	}
+}
+	//добавление объекта
+	for(let i=0;i<radios.length;i++){
+		if(radios[i].checked){
+			if(moveField.value.length==0){
+				chainEntity.innerHTML += radios[i].value;
+				theChain[chainBody.childNodes.length-1] = {
+				to:null, action:radios[i].value}
+			}else{
+				theChain[chainBody.childNodes.length-1] = {
+				to:moveField.value, action:radios[i].value}
+		}
+		}
+	}
+	//размещение
+	if(theChain.length>1){
+		leftVal += 80;
+	}
+	if(theChain.length%6==0){
+		chainBody.style.height = parseInt(chainBody.style.height)+80+"px"
+		topVal+=80;
+		leftVal=0;
+	}
+	chainEntity.style.left = leftVal+"px";
+	chainEntity.style.top = topVal+"px";
+	chainBody.appendChild(chainEntity);
+	console.log(theChain);
+}
+function clearChain(){	
+	let chainBody = document.getElementsByClassName("chainEntity");
+	let i= chainBody.length;
+	while (i!=0){
+		i--;
+	console.log("now removing : "+chainBody[i].innerHTML);
+	chainBody[i].remove();
+	}
+	theChain = [];
+	leftVal = 0;
+	topVal = 0;
+}
 
+	
+//anime
+let Time, Speed = 3;
 function animate(finalTop,finalLeft, action){
 	let Robostyle = newRobot.style;
 	let currentTop = parseInt(Robostyle.top);
 	let currentLeft = parseInt(Robostyle.left);
-	let Ktop = 0;//индикатор
-	Time = (Math.abs(finalTop-currentTop)+Math.abs(finalLeft-currentLeft))/Speed +1500;
+	let topCompleted = 0;
+	//Time = (Math.abs(finalTop-currentTop)+Math.abs(finalLeft-currentLeft))/Speed +1500;
+	//console.log("Time to finish task : "+Time);
 	
 	//top
 	if(finalTop>currentTop){
-		let i=currentTop;
-		timerID1 = setInterval(function(){
-			if(finalTop<=i){clearInterval(timerID1);sweech(action)} else{
-				i++;
-				Robostyle.top = i+"px";
-			}
-		},Speed);
 		
-		}else{
-		let i=currentTop;
-		timerID1 = setInterval(function(){
-			if(finalTop>=i){clearInterval(timerID1);sweech(action)} else{
-				i--;
+		(function iterate(i) {
+			timerID1 = setTimeout(function() {	
+//console.log("timerID = "+timerID1);			
+				if (finalTop>=i && !isObjectFoundOnTrack()) {
 				Robostyle.top = i+"px";
-			}
-		},Speed);
-		Ktop=1;
+					iterate(i + 1);
+				}else{
+					topCompleted=1;
+				}
+			}, Speed);
+		})(currentTop);
+		}else{
+			(function iterate(i) {
+			timerID1 = setTimeout(function() {	
+				if (finalTop<=i && !isObjectFoundOnTrack()) {	
+				Robostyle.top = i+"px";
+					iterate(i - 1);		
+				}else{
+					topCompleted=1;
+				}
+			}, Speed);
+		})(currentTop);
 	}
-	
+	(function waitForTop(){
+		wait = setTimeout(function(){
+			if(!topCompleted){
+				waitForTop();
+			}else{
 	//left
 		if(finalLeft>currentLeft){
-		let i=currentLeft;
-		timerID2 = setInterval(function(){
-			if(finalLeft<=i){clearInterval(timerID2);sweech(action)} else{
-				i++;
+			(function iterate(i) {
+			timerID2 = setTimeout(function() {	
+
+//console.log("timerID2 = "+timerID2);		
+				if (finalLeft>=i && !isObjectFoundOnTrack()) {		
 				Robostyle.left = i+"px";
-			}
-		},Speed);
-		
+					iterate(i + 1);
+				}else{
+			sweech(action);
+				}
+			}, Speed);
+		})(currentLeft);
 		}else{
-		let i=currentLeft;
-		timerID2 = setInterval(function(){
-		if(finalLeft>=i){clearInterval(timerID2);sweech(action)} else{
-				i--;
+			(function iterate(i) {
+			timerID2 = setTimeout(function() {	
+				if (finalLeft<=i && !isObjectFoundOnTrack()) {			
 				Robostyle.left = i+"px";
-			}
-		},Speed);
-		
+					iterate(i - 1);
+				}else{
+			sweech(action);
+				}
+			}, Speed);
+			})(currentLeft);
 	}	
+	
+			}
+	},1000);})(0)
 }
 
 function move(param, action){
+	console.log(" p = "+param);
+	if(param!=null){
+	console.log("Going to "+param+" to "+action);
 	//let param = document.getElementById("move").value;
 	let Robostyle = newRobot.style;
-	if(param!=null){
 		if(isNaN(parseInt(param))){			
 			let finalLeft = 200;//Сместить робота максимально вправо
 			let multip=0;
@@ -173,6 +276,8 @@ function move(param, action){
 			let finalTop = multip*100;
 			animate(finalTop, finalLeft, action);
 		}
+	}else{
+		sweech(action);
 	}
 }
 
@@ -181,6 +286,7 @@ function take(){
 	let Robostyle = newRobot.style;
 	if(Robostyle.left=="200px" && holding.style.backgroundColor=="white"){
 		let colNum = parseInt(Robostyle.top)/100;
+		//console.log(colors[colNum]);
 		holding.style.backgroundColor = colors[colNum];
 	}
 }
@@ -217,59 +323,22 @@ function unplug(){
 	}
 }
 
-function RadiobuttonChange(but){
-	if (but.name=="first"){
-		if(but.value=="take" || but.value=="put"){
-			let SecondRowRadio = document.getElementsByName("second");
-			for(let i=0;i<2;i++){
-				SecondRowRadio[i].disabled = true;
-				SecondRowRadio[i+2].disabled = false;
-				}
-		}else{
-			let SecondRowRadio = document.getElementsByName("second");
-			for(let i=0;i<2;i++){
-				SecondRowRadio[i].disabled = false;
-				SecondRowRadio[i+2].disabled = true;
-				}
-		}
-	}
+
+//go
+function handler(){
+		(function iterate(i) {
+	setTimeout(function() {
+    	move(theChain[i].to,theChain[i].action);
+        if (i < theChain.length-1) {
+        	iterate(i + 1);
+        }
+    }, 7000);
+})(0);
+	
 }
 
-function handler(){
-	let firstWay = document.getElementById("movefrom");
-	let secondWay = document.getElementById("moveto");
-	let FirstRowRadio = document.getElementsByName("first");
-		let firstAction;
-	let SecondRowRadio = document.getElementsByName("second");
-		let secondAction;
-	if(firstWay!=null&&secondWay!=null){
-		let i=0;
-		while(!FirstRowRadio[i].checked){
-			i++;
-		}
-		firstAction = FirstRowRadio[i].value;
-		let j=0;
-		while(!SecondRowRadio[j].checked){
-			j++;
-		}
-		secondAction = SecondRowRadio[j].value;
-		
-		//выполнение
-		move(firstWay.value, firstAction);
-		let g=0;
-		wait = setInterval(function(){
-			if(g>Time){
-				clearInterval(wait);
-				move(secondWay.value,secondAction);
-			}else{
-				g++;
-				console.log("animating");
-			}
-		},1);
-	
-}}
-
 function sweech(val){
+	console.log(val+" perfomed");
 	switch(val){
 			case "take":
 			take();
@@ -283,12 +352,10 @@ function sweech(val){
 			case "unplug":
 			unplug();
 			break;
+			case "addObject":
+			addObject();
+			break;
+			default:
+			console.log("Error in name of action");
 		}
 }
-
-
-
-
-
-
-

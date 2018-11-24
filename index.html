@@ -21,24 +21,24 @@
 <div id="holding"></div>
 
 <div id="control">
-	Движение В <input type="text" id="movefrom" value="b"><br>
-	Взять <input type="radio" name="first" checked onchange="RadiobuttonChange(this)" value="take"><br>
-	Положить <input type="radio" name="first" onchange="RadiobuttonChange(this)" value="put"><br>
-	Подключить <input type="radio" name="first" onchange="RadiobuttonChange(this)" value="plug"><br>
-	Отключить <input type="radio" name="first" onchange="RadiobuttonChange(this)" value="unplug"><br>
-	Движение В <input type="text" id="moveto" value="3"><br>
-	Взять <input type="radio" name="second" onchange="RadiobuttonChange(this)" value="take"><br>
-	Положить <input type="radio" name="second" onchange="RadiobuttonChange(this)" value="put"><br>
-	Подключить <input type="radio" name="second" checked onchange="RadiobuttonChange(this)" value="plug"><br>
-	Отключить <input type="radio" name="second" onchange="RadiobuttonChange(this)" value="unplug"><br>
+	<div id="thechain" style="height:80px;">
+		
+	</div>
 	<input type="button" value="GO" onclick="handler()"><br>
-	Остановить <input type="button" value="Stop" onclick="clearInterval(timerID1);clearInterval(wait);clearInterval(timerID2); alert('Работа робота приостановленна');"><br>
+	Движение В <input type="text" id="moveto" value="b"><br>
+	Взять <input type="radio" name="first" checked onchange="" value="take"><br>
+	Положить <input type="radio" name="first" onchange="" value="put"><br>
+	Подключить <input type="radio" name="first" onchange="" value="plug"><br>
+	Отключить <input type="radio" name="first" onchange="" value="unplug"><br>
+	<br>
+	Остановить <input type="radio" name="first" value="stopRobot"><br>
+	Неопределенный объект <input type="radio" name="first" value="addObject"><br>
+	Два прерывания с приоритетами <input type="radio" name="first" value="priorityInterrupt"><br>
+	Убрать объект <input type="radio" name="first" value="removeObject"><br>
+	<input type="button" onclick="addToChain()" value="Добавить в цепочку событий"><br>
+	<input type="button" onclick="clearChain()" value="Очистить цепочку событий"><br>
 	<table style="font:10px Arial">
-	Неопределенный объект <input type="button" value="Unidentified object" onclick="clearInterval(timerID1);clearInterval(wait);clearInterval(timerID2); alert('Внимание! Найден неопознанный объект!'); addObject();"><br>
 
-	Два прерывания с приоритетами <input type="button" value="Double interrupt with priority" onclick="priorityFuckingInterrupt(); "><br>
-
-	Убрать объект <input type="button" value="remove object" onclick="clearInterval(timerID1);clearInterval(wait);clearInterval(timerID2); removeObject();"><br>
 	Приоритет первого прерывания<input type="text" id="interrupt1" value="1"><br>
 	Приоритет прерывания с объектом<input type="text" id="interrupt2" value="2"><br>
 	<table style="font:10px Arial">

@@ -18,13 +18,27 @@
 }
 #control{
 	width:500px;
-	height:350px;
+	height:650px;
 	border:3px double black;
 	position:absolute;
 	right:0px;
 	top:0px;
 }
+#thechain{
+	width:500px;
+	border:1px solid grey;
+}
+.chainEntity{
+	position:absolute;
+	text-align:center;
+	display:inline-block;
+	width:100px;
+	height:78px;
+	background-size:100% 100%;
+}
 .port{
+	background-image:url(rozetka.png);
+	background-size:100% 100%;
 	width:100px;
 	height:100px;
 	border:1px solid black;
