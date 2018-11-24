@@ -11,6 +11,7 @@ let timerID1, timerID2, wait;//для анимации
 
 let p=0,w=0;
 let pArr=[],wArr=[];
+let stopped = false;
 
 function getter(){//получить кол-во проводов и портов
 	p = document.getElementById("getPorts").value;
@@ -118,6 +119,18 @@ function stopRobot(){
 		}
 	}
 
+	function checkMoveToValue(value){
+		if(parseInt(value.length)==0){
+			document.getElementById("addObjRadio").disabled=false;
+		}else{			
+			document.getElementById("addObjRadio").disabled=true;
+		}		
+	}
+	
+	function stopByButton(){
+		stopped = true;
+	}
+	
 //addChain
 let theChain = [];
 let leftVal = 0, topVal = 0;
@@ -201,7 +214,7 @@ function animate(finalTop,finalLeft, action){
 		(function iterate(i) {
 			timerID1 = setTimeout(function() {	
 //console.log("timerID = "+timerID1);			
-				if (finalTop>=i && !isObjectFoundOnTrack()) {
+				if (finalTop>=i && !isObjectFoundOnTrack() && !stopped) {
 				Robostyle.top = i+"px";
 					iterate(i + 1);
 				}else{
@@ -212,7 +225,7 @@ function animate(finalTop,finalLeft, action){
 		}else{
 			(function iterate(i) {
 			timerID1 = setTimeout(function() {	
-				if (finalTop<=i && !isObjectFoundOnTrack()) {	
+				if (finalTop<=i && !isObjectFoundOnTrack() && !stopped) {	
 				Robostyle.top = i+"px";
 					iterate(i - 1);		
 				}else{
@@ -232,7 +245,7 @@ function animate(finalTop,finalLeft, action){
 			timerID2 = setTimeout(function() {	
 
 //console.log("timerID2 = "+timerID2);		
-				if (finalLeft>=i && !isObjectFoundOnTrack()) {		
+				if (finalLeft>=i && !isObjectFoundOnTrack() && !stopped) {		
 				Robostyle.left = i+"px";
 					iterate(i + 1);
 				}else{
@@ -243,7 +256,7 @@ function animate(finalTop,finalLeft, action){
 		}else{
 			(function iterate(i) {
 			timerID2 = setTimeout(function() {	
-				if (finalLeft<=i && !isObjectFoundOnTrack()) {			
+				if (finalLeft<=i && !isObjectFoundOnTrack() && !stopped) {			
 				Robostyle.left = i+"px";
 					iterate(i - 1);
 				}else{
@@ -327,6 +340,7 @@ function unplug(){
 
 //go
 function handler(){
+	stopped = false;
 		(function iterate(i) {
 	setTimeout(function() {
     	move(theChain[i].to,theChain[i].action);

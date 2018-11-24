@@ -25,14 +25,14 @@
 		
 	</div>
 	<input type="button" value="GO" onclick="handler()"><br>
-	Движение В <input type="text" id="moveto" value="b"><br>
+	Движение В <input type="text" id="moveto" onchange="checkMoveToValue(this.value)" value="b"><br>
 	Взять <input type="radio" name="first" checked onchange="" value="take"><br>
 	Положить <input type="radio" name="first" onchange="" value="put"><br>
 	Подключить <input type="radio" name="first" onchange="" value="plug"><br>
 	Отключить <input type="radio" name="first" onchange="" value="unplug"><br>
 	<br>
-	Остановить <input type="radio" name="first" value="stopRobot"><br>
-	Неопределенный объект <input type="radio" name="first" value="addObject"><br>
+	Остановить <input type="button" name="first" onclick="stopByButton()" value="stopRobot"><br>
+	Неопределенный объект <input type="radio" id="addObjRadio" disabled name="first" value="addObject"><br>
 	Два прерывания с приоритетами <input type="radio" name="first" value="priorityInterrupt"><br>
 	Убрать объект <input type="button" name="first" onclick="removeObject()" value="removeObject"><br>
 	<input type="button" onclick="addToChain()" value="Добавить в цепочку событий"><br>
