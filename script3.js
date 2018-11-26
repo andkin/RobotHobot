@@ -92,7 +92,11 @@ function priorityInterrupt()
 			}, 2000)
 		}, 5000);
 
-
+		stopByButton();
+		addObject();
+	} else {
+		addObject();
+		stopByButton();
 	}
 }
 
@@ -112,7 +116,7 @@ function stopRobot(){
 		y = Math.random()*(4-0)+0;
 		Objstyle.top = y*100+"px";
 		Objstyle.left = x*100+"px";
-
+		alert('Внимание! Найден объект! Ожидайте столкновения!');
 	}
 
 	function removeObject() {
@@ -148,6 +152,7 @@ function stopRobot(){
 	function stopByButton(){
 		console.log(getFormattedDate()+ "Robot stopped");
 		stopped = true;
+		alert('Внимание! Прерывание по кнопке!');
 	}
 
 //addChain
