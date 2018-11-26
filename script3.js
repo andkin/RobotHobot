@@ -68,15 +68,11 @@ function priorityInterrupt()
 	let priorityFirstInterrupt = document.getElementById("interrupt1").value;
 	let prioritySecondInterrupt = document.getElementById("interrupt2").value;
 	if (priorityFirstInterrupt < prioritySecondInterrupt){
-		clearInterval(timerID1);
-		clearInterval(wait);
-		clearInterval(timerID2);
+		stopByButton();
 		addObject();
 	} else {
 		addObject();
-		clearInterval(timerID1);
-		clearInterval(wait);
-		clearInterval(timerID2);
+		stopByButton();
 	}
 }
 
@@ -96,7 +92,7 @@ function stopRobot(){
 		y = Math.random()*(5-0)+0;
 		Objstyle.top = y*100+"px";
 		Objstyle.left = x*100+"px";
-
+		alert('Внимание! Найден объект! Ожидайте столкновения!');
 	}
 
 	function removeObject() {
@@ -129,6 +125,7 @@ function stopRobot(){
 	
 	function stopByButton(){
 		stopped = true;
+		alert('Внимание! Прерывание по кнопке!');
 	}
 	
 //addChain
