@@ -363,21 +363,28 @@ function unplug(){
 	}
 }
 
-
+let currentPosition;
 //go
 function handler(){
+	if(!stopped){
+		currentPosition=0;
+	}
 	stopped = false;
 		(function iterate(i) {
+			if(i==theChain.length){
+				currentPosition=0;
+			}
 			setTimeout(function() {
 					if (stopped) {
+						currentPosition=i-1;
 						return;
 					}
 		    	move(theChain[i].to,theChain[i].action);
 		        if (i < theChain.length-1) {
 		        	iterate(i + 1);
 		        }
-		    }, 3000);
-		})(0);
+		    }, 7000);
+		})(currentPosition);
 
 }
 
