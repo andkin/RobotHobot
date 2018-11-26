@@ -13,7 +13,7 @@
 <input type="submit" value="Proceed" onclick="getter()">
 	<input type="button" value="reload" onclick="location.reload()">
 
-<div id="field">	
+<div id="field">
 	<div id="ports"></div>
 	<div id="space"></div>
 	<div id="wires"></div>
@@ -22,7 +22,7 @@
 
 <div id="control">
 	<div id="thechain" style="height:80px;">
-		
+
 	</div>
 	<input type="button" value="GO" onclick="handler()"><br>
 	Движение В <input type="text" id="moveto" onchange="checkMoveToValue(this.value)" value="b"><br>
@@ -33,8 +33,8 @@
 	<br>
 	Остановить <input type="button" name="first" onclick="stopByButton()" value="stopRobot"><br>
 	Неопределенный объект <input type="radio" id="addObjRadio" disabled name="first" value="addObject"><br>
-	Два прерывания с приоритетами <input type="radio" name="first" value="priorityInterrupt"><br>
-	Убрать объект <input type="button" name="first" onclick="removeObject()" value="removeObject"><br>
+	<input type="button" onclick="priorityInterrupt()" value="Прерывания с приоритетами"><br>
+	<input type="button" onclick="removeObject()" value="Удалить объект"><br>
 	<input type="button" onclick="addToChain()" value="Добавить в цепочку событий"><br>
 	<input type="button" onclick="clearChain()" value="Очистить цепочку событий"><br>
 	<table style="font:10px Arial">

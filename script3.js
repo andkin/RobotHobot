@@ -1,5 +1,5 @@
 window.onload = function(){
-	
+
 let holding = document.getElementById("holding");
 holding.style.backgroundColor = "white";
 };
@@ -16,10 +16,10 @@ let stopped = false;
 function getter(){//получить кол-во проводов и портов
 	p = document.getElementById("getPorts").value;
 	w = document.getElementById("getWires").value;
-	
+
 	for(let i=0;i<w;i++)wArr[i]=colors[i];
 	for(let i=0;i<p;i++)pArr[i]=i+1;
-	
+
 	drawField();
 }
 
@@ -30,7 +30,7 @@ function drawField(){
 	let wire = document.getElementById("wires");
 	let space = document.getElementById("space");
 	//let robot = document.getElementById("robots");
-	
+
 	//порты
 	for(let i=0;i<pArr.length;i++){
 	let newDiv = document.createElement("div");
@@ -53,37 +53,53 @@ function drawField(){
 	space.appendChild(newDiv);
 	newDiv.style.height = Math.max(p,w)*(100+2)-2+"px";
 	newDiv.className = "space";
-	
-	//robat hobat	
+
+	//robat hobat
 	space.appendChild(newRobot);
 	newRobot.id = "robot";
 	let Robostyle = newRobot.style;
 	Robostyle.top = "0px";
 	Robostyle.left = "100px";
-	
+
 }
 
 function priorityInterrupt()
 {
 	let priorityFirstInterrupt = document.getElementById("interrupt1").value;
 	let prioritySecondInterrupt = document.getElementById("interrupt2").value;
+	console.log(getFormattedDate() + " Two new interruption");
+
 	if (priorityFirstInterrupt < prioritySecondInterrupt){
+		addObject();
+		setTimeout(function() {
+			removeObject();
+			setTimeout(function() {
+				console.log(getFormattedDate() + " First interruption handled");
+			}, 2000)
+		}, 5000);
 		clearInterval(timerID1);
 		clearInterval(wait);
 		clearInterval(timerID2);
-		addObject();
 	} else {
-		addObject();
 		clearInterval(timerID1);
 		clearInterval(wait);
 		clearInterval(timerID2);
+		addObject();
+		setTimeout(function() {
+			console.log(getFormattedDate() + " First interruption handled");
+			setTimeout(function() {
+				removeObject();
+			}, 2000)
+		}, 5000);
+
+
 	}
 }
 
 function stopRobot(){
 	clearInterval(timerID1);
 	clearInterval(wait);
-	clearInterval(timerID2); 
+	clearInterval(timerID2);
 }
 
 	function addObject(){
@@ -93,7 +109,7 @@ function stopRobot(){
 		let Objstyle = newObject.style;
 		let x,y;
 		x = Math.random()*(2-0)+0;
-		y = Math.random()*(5-0)+0;
+		y = Math.random()*(4-0)+0;
 		Objstyle.top = y*100+"px";
 		Objstyle.left = x*100+"px";
 
@@ -101,8 +117,9 @@ function stopRobot(){
 
 	function removeObject() {
 		space.removeChild(newObject);
+		console.log(getFormattedDate() + " Object removed");
 	}
-	
+
 	function isObjectFoundOnTrack(){
 		let rtop = parseFloat(document.getElementById("robot").style.top);
 		let rleft = parseFloat(document.getElementById("robot").style.left);
@@ -111,7 +128,8 @@ function stopRobot(){
 		let oleft = parseFloat(document.getElementById("unobj").style.left);
 			//console.log(rtop+" "+otop+" \ "+rleft+" "+oleft);
 		if(Math.abs((rtop)-(otop))<100 && Math.abs((rleft)-(oleft))<100){
-			console.log("%cWARNING!Remove objects from the track!!",'background: #222; color: red');
+			stopped = true;
+			console.log(getFormattedDate() + " %cWARNING!Remove objects from the track!!",'background: #222; color: red');
 			return true;
 		}else{
 			return false;
@@ -122,15 +140,16 @@ function stopRobot(){
 	function checkMoveToValue(value){
 		if(parseInt(value.length)==0){
 			document.getElementById("addObjRadio").disabled=false;
-		}else{			
+		}else{
 			document.getElementById("addObjRadio").disabled=true;
-		}		
+		}
 	}
-	
+
 	function stopByButton(){
+		console.log(getFormattedDate()+ "Robot stopped");
 		stopped = true;
 	}
-	
+
 //addChain
 let theChain = [];
 let leftVal = 0, topVal = 0;
@@ -141,12 +160,12 @@ function addToChain(){
 	let chainEntity = document.createElement("div");
 	chainEntity.className = "chainEntity";
 	let col;
-	console.log(moveField.value.length);
+	//console.log(moveField.value.length);
 	if(moveField.value.length==0){
 		chainEntity.style.backgroundImage="url(puzzle/white.png)";
 	}else if(isNaN(moveField.value)){
 		for(col=0;col<c.length;col++)
-			if(c[col]==moveField.value){		
+			if(c[col]==moveField.value){
 			chainEntity.style.backgroundImage="url(puzzle/"+colors[col]+".png)";
 			chainEntity.innerHTML = "go to "+colors[col]+"<br>and ";
 			}
@@ -182,14 +201,14 @@ function addToChain(){
 	chainEntity.style.left = leftVal+"px";
 	chainEntity.style.top = topVal+"px";
 	chainBody.appendChild(chainEntity);
-	console.log(theChain);
+	//console.log(theChain);
 }
-function clearChain(){	
+function clearChain(){
 	let chainBody = document.getElementsByClassName("chainEntity");
 	let i= chainBody.length;
 	while (i!=0){
 		i--;
-	console.log("now removing : "+chainBody[i].innerHTML);
+	//console.log("now removing : "+chainBody[i].innerHTML);
 	chainBody[i].remove();
 	}
 	theChain = [];
@@ -197,7 +216,7 @@ function clearChain(){
 	topVal = 0;
 }
 
-	
+
 //anime
 let Time, Speed = 3;
 function animate(finalTop,finalLeft, action){
@@ -207,13 +226,13 @@ function animate(finalTop,finalLeft, action){
 	let topCompleted = 0;
 	//Time = (Math.abs(finalTop-currentTop)+Math.abs(finalLeft-currentLeft))/Speed +1500;
 	//console.log("Time to finish task : "+Time);
-	
+
 	//top
 	if(finalTop>currentTop){
-		
+
 		(function iterate(i) {
-			timerID1 = setTimeout(function() {	
-//console.log("timerID = "+timerID1);			
+			timerID1 = setTimeout(function() {
+//console.log("timerID = "+timerID1);
 				if (finalTop>=i && !isObjectFoundOnTrack() && !stopped) {
 				Robostyle.top = i+"px";
 					iterate(i + 1);
@@ -224,10 +243,10 @@ function animate(finalTop,finalLeft, action){
 		})(currentTop);
 		}else{
 			(function iterate(i) {
-			timerID1 = setTimeout(function() {	
-				if (finalTop<=i && !isObjectFoundOnTrack() && !stopped) {	
+			timerID1 = setTimeout(function() {
+				if (finalTop<=i && !isObjectFoundOnTrack() && !stopped) {
 				Robostyle.top = i+"px";
-					iterate(i - 1);		
+					iterate(i - 1);
 				}else{
 					topCompleted=1;
 				}
@@ -242,10 +261,10 @@ function animate(finalTop,finalLeft, action){
 	//left
 		if(finalLeft>currentLeft){
 			(function iterate(i) {
-			timerID2 = setTimeout(function() {	
+			timerID2 = setTimeout(function() {
 
-//console.log("timerID2 = "+timerID2);		
-				if (finalLeft>=i && !isObjectFoundOnTrack() && !stopped) {		
+//console.log("timerID2 = "+timerID2);
+				if (finalLeft>=i && !isObjectFoundOnTrack() && !stopped) {
 				Robostyle.left = i+"px";
 					iterate(i + 1);
 				}else{
@@ -255,8 +274,8 @@ function animate(finalTop,finalLeft, action){
 		})(currentLeft);
 		}else{
 			(function iterate(i) {
-			timerID2 = setTimeout(function() {	
-				if (finalLeft<=i && !isObjectFoundOnTrack() && !stopped) {			
+			timerID2 = setTimeout(function() {
+				if (finalLeft<=i && !isObjectFoundOnTrack() && !stopped) {
 				Robostyle.left = i+"px";
 					iterate(i - 1);
 				}else{
@@ -264,19 +283,26 @@ function animate(finalTop,finalLeft, action){
 				}
 			}, Speed);
 			})(currentLeft);
-	}	
-	
+	}
+
 			}
 	},1000);})(0)
 }
 
+function getFormattedDate(){
+    var d = new Date();
+
+    d = d.getFullYear() + "-" + ('0' + (d.getMonth() + 1)).slice(-2) + "-" + ('0' + d.getDate()).slice(-2) + " " + ('0' + d.getHours()).slice(-2) + ":" + ('0' + d.getMinutes()).slice(-2) + ":" + ('0' + d.getSeconds()).slice(-2);
+
+    return d;
+}
+
 function move(param, action){
-	console.log(" p = "+param);
 	if(param!=null){
-	console.log("Going to "+param+" to "+action);
+	console.log(getFormattedDate() + " Going to "+param+" to "+action);
 	//let param = document.getElementById("move").value;
 	let Robostyle = newRobot.style;
-		if(isNaN(parseInt(param))){			
+		if(isNaN(parseInt(param))){
 			let finalLeft = 200;//Сместить робота максимально вправо
 			let multip=0;
 			while(param!=c[multip]){
@@ -332,7 +358,7 @@ function unplug(){
 		if(allPorts[colNum].style.backgroundColor!="white"){
 			holding.style.backgroundColor = allPorts[colNum].style.backgroundColor;
 			allPorts[colNum].style.backgroundColor = "white";
-			
+
 		}
 	}
 }
@@ -342,18 +368,23 @@ function unplug(){
 function handler(){
 	stopped = false;
 		(function iterate(i) {
-	setTimeout(function() {
-    	move(theChain[i].to,theChain[i].action);
-        if (i < theChain.length-1) {
-        	iterate(i + 1);
-        }
-    }, 7000);
-})(0);
-	
+			setTimeout(function() {
+					if (stopped) {
+						return;
+					}
+		    	move(theChain[i].to,theChain[i].action);
+		        if (i < theChain.length-1) {
+		        	iterate(i + 1);
+		        }
+		    }, 3000);
+		})(0);
+
 }
 
 function sweech(val){
-	console.log(val+" perfomed");
+	if (!stopped) {
+		console.log(getFormattedDate() +" " + val+" perfomed");
+	}
 	switch(val){
 			case "take":
 			take();
@@ -368,9 +399,11 @@ function sweech(val){
 			unplug();
 			break;
 			case "addObject":
-			addObject();
+			{
+				addObject();
+			}
 			break;
 			default:
-			console.log("Error in name of action");
+			console.log(getFormattedDate() + " Error in name of action");
 		}
 }
