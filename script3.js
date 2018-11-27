@@ -61,6 +61,9 @@ function drawField(){
 	Robostyle.top = "0px";
 	Robostyle.left = "100px";
 
+	console.log(getFormattedDate() + " Задача #1");
+	
+
 }
 
 function priorityInterrupt()
@@ -203,6 +206,7 @@ function addToChain(){
 	chainBody.appendChild(chainEntity);
 	//console.log(theChain);
 }
+	let j=1;
 function clearChain(){
 	let chainBody = document.getElementsByClassName("chainEntity");
 	let i= chainBody.length;
@@ -214,6 +218,8 @@ function clearChain(){
 	theChain = [];
 	leftVal = 0;
 	topVal = 0;
+	j++;
+	console.log(getFormattedDate() + " Задача #" + (j));
 }
 
 
