@@ -24,6 +24,11 @@
 	right:0px;
 	top:0px;
 }
+#logDIV{
+	position:absolute;
+	top:700px;
+	left:100px;
+}
 #thechain{
 	width:500px;
 	border:1px solid grey;
