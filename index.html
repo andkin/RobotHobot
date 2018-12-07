@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Visualizacia</title>
+<title>Visualizacia of Robot</title>
+<meta charset="utf-8">
 <link rel="stylesheet" href="css2.css">
 <meta charset="utf-8">
 <script src="script3.js"></script>
+<script
+		src="https://code.jquery.com/jquery-1.12.3.min.js"
+		integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ="
+		crossorigin="anonymous"></script>
+	<script src="logFileWork.js"></script>
 </head>
 <body>
 
@@ -69,8 +75,11 @@
 	</table>
 </div>
 
-<div id="logDIV">
-</div>
+<form id="logFORM" method="post" action="">
+<textarea name="logdata" id="logDIV">
+</textarea>
+<input type="submit" id="goLOG" value="LOG">
+</form>
 
 </body>
 </html>

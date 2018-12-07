@@ -26,6 +26,7 @@ function getter(){//получить кол-во проводов и порто�
 let newRobot = document.createElement("div");
 let newObject = document.createElement("div");
 function drawField(){
+	//let logDIV = document.getElementById("logDIV").innerHTML;
 	let port = document.getElementById("ports");
 	let wire = document.getElementById("wires");
 	let space = document.getElementById("space");
@@ -60,19 +61,16 @@ function drawField(){
 	let Robostyle = newRobot.style;
 	Robostyle.top = "0px";
 	Robostyle.left = "100px";
-logDIV+=getFormattedDate() + " Задача #1<br>";
-	console.log(getFormattedDate() + " Задача #1");
 	
 
 }
 
 function priorityInterrupt()
 {
-	let logDIV = document.getElementById("logDIV").innerHTML;
+	let logDIV = document.getElementById("logDIV");
 	let priorityFirstInterrupt = document.getElementById("interrupt1").value;
 	let prioritySecondInterrupt = document.getElementById("interrupt2").value;
-	logDIV+=getFormattedDate() + " Two new interruption<br>";
-	logDIV+=getFormattedDate() + " Two new interruption<br>";
+	logDIV.innerHTML+=getFormattedDate() + " Two new interruption\n";
 	console.log(getFormattedDate() + " Two new interruption");
 
 	if (priorityFirstInterrupt < prioritySecondInterrupt){
@@ -80,7 +78,7 @@ function priorityInterrupt()
 		setTimeout(function() {
 			removeObject();
 			setTimeout(function() {
-				logDIV+=getFormattedDate() + " First interruption handled<br>";
+				logDIV.innerHTML+=getFormattedDate() + " First interruption handled\n";
 				console.log(getFormattedDate() + " First interruption handled");
 			}, 2000)
 		}, 5000);
@@ -93,7 +91,7 @@ function priorityInterrupt()
 		clearInterval(timerID2);
 		addObject();
 		setTimeout(function() {
-			logDIV+=getFormattedDate() + " First interruption handled<br>";
+			logDIV.innerHTML+=getFormattedDate() + " First interruption handled\n";
 			console.log(getFormattedDate() + " First interruption handled");
 			setTimeout(function() {
 				removeObject();
@@ -124,14 +122,14 @@ function stopRobot(){
 	}
 
 	function removeObject() {
-	let logDIV = document.getElementById("logDIV").innerHTML;
+	let logDIV = document.getElementById("logDIV");
 		space.removeChild(newObject);
-		logDIV+=getFormattedDate() + " Object removed<br>";
+		logDIV.innerHTML+=getFormattedDate() + " Object removed\n";
 		console.log(getFormattedDate() + " Object removed");
 	}
 
 	function isObjectFoundOnTrack(){
-	let logDIV = document.getElementById("logDIV").innerHTML;
+	let logDIV = document.getElementById("logDIV");
 		let rtop = parseFloat(document.getElementById("robot").style.top);
 		let rleft = parseFloat(document.getElementById("robot").style.left);
 		if(document.getElementById("unobj")){
@@ -140,7 +138,7 @@ function stopRobot(){
 			//console.log(rtop+" "+otop+" \ "+rleft+" "+oleft);
 		if(Math.abs((rtop)-(otop))<100 && Math.abs((rleft)-(oleft))<100){
 			stopped = true;
-			logDIV+=getFormattedDate() + " <b style='color:red'>WARNING!Remove objects from the track!!</b><br>";
+			logDIV.innerHTML+=getFormattedDate() + " !!WARNING!Remove objects from the track!!\n";
 			console.log(getFormattedDate() + " %cWARNING!Remove objects from the track!!",'background: #222; color: red');
 			return true;
 		}else{
@@ -158,8 +156,8 @@ function stopRobot(){
 	}
 
 	function stopByButton(){
-	let logDIV = document.getElementById("logDIV").innerHTML;
-	logDiv+=getFormattedDate()+ "Robot stopped<br>";
+	let logDIV = document.getElementById("logDIV");
+	logDiv.innerHTML+=getFormattedDate()+ "Robot stopped\n";
 		console.log(getFormattedDate()+ "Robot stopped");
 		stopped = true;
 	}
@@ -219,7 +217,7 @@ function addToChain(){
 }
 	let j=1;
 function clearChain(){
-	let logDIV = document.getElementById("logDIV").innerHTML;
+	let logDIV = document.getElementById("logDIV");
 	let chainBody = document.getElementsByClassName("chainEntity");
 	let i= chainBody.length;
 	while (i!=0){
@@ -231,7 +229,7 @@ function clearChain(){
 	leftVal = 0;
 	topVal = 0;
 	j++;
-	logDIV+=getFormattedDate() + " Задача #" + (j)+"<br>";
+	logDIV.innerHTML+=getFormattedDate() + " Задача #" + (j)+"\r\n";
 	console.log(getFormattedDate() + " Задача #" + (j));
 }
 
@@ -317,9 +315,9 @@ function getFormattedDate(){
 }
 
 function move(param, action){
-	let logDIV = document.getElementById("logDIV").innerHTML;
+	let logDIV = document.getElementById("logDIV");
 	if(param!=null){
-		logDIV+=getFormattedDate() + " Going to "+param+" to "+action+"<br>";
+		logDIV.innerHTML+=getFormattedDate() + " Going to "+param+" to "+action+"\n";
 	console.log(getFormattedDate() + " Going to "+param+" to "+action);
 	//let param = document.getElementById("move").value;
 	let Robostyle = newRobot.style;
@@ -410,9 +408,9 @@ function handler(){
 }
 
 function sweech(val){
-	let logDIV = document.getElementById("logDIV").innerHTML;
+	let logDIV = document.getElementById("logDIV");
 	if (!stopped) {
-		logDIV+=getFormattedDate() +" " + val+" perfomed<br>";
+		logDIV.innerHTML+=getFormattedDate() +" " + val+" perfomed\n";
 		console.log(getFormattedDate() +" " + val+" perfomed");
 	}
 	switch(val){
@@ -434,7 +432,7 @@ function sweech(val){
 			}
 			break;
 			default:
-			logDIV+=getFormattedDate() + " Error in name of action<br>";
+			logDIV.innerHTML+=getFormattedDate() + " Error in name of action\n";
 			console.log(getFormattedDate() + " Error in name of action");
 		}
 }
