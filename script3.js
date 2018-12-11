@@ -146,7 +146,7 @@ function stopRobot(){
 		}
 		}
 	}
-
+/*
 	function checkMoveToValue(value){
 		if(parseInt(value.length)==0){
 			document.getElementById("addObjRadio").disabled=false;
@@ -154,7 +154,7 @@ function stopRobot(){
 			document.getElementById("addObjRadio").disabled=true;
 		}
 	}
-
+*/
 	function stopByButton(){
 	let logDIV = document.getElementById("logDIV");
 	logDiv.innerHTML+=getFormattedDate()+ "Robot stopped\n";
@@ -226,6 +226,7 @@ function clearChain(){
 	chainBody[i].remove();
 	}
 	theChain = [];
+	currentPosition = 0;
 	leftVal = 0;
 	topVal = 0;
 	j++;
@@ -382,20 +383,20 @@ function unplug(){
 	}
 }
 
-let currentPosition;
+let currentPosition = 0;
 //go
 function handler(){
-	if(!stopped){
-		currentPosition=0;
-	}
 	stopped = false;
 		(function iterate(i) {
+						console.log("When started = "+i);			
 			if(i==theChain.length){
+				console.log("current i = "+i);
 				currentPosition=0;
 			}
 			setTimeout(function() {
 					if (stopped) {
 						currentPosition=i-1;
+						console.log("When stopped = "+currentPosition);
 						return;
 					}
 		    	move(theChain[i].to,theChain[i].action);
