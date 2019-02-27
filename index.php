@@ -47,7 +47,7 @@
 	<input type="file" name="program">
 	<input type="submit" value="Загрузить">
 	</form>
-	<input type="button" onclick="compile()" value="Компилировать"><br>
+	<input type="button" onclick="clearChain();compile()" value="Компилировать"><br>
 	Отладчик:
 	<div id="IDE">
 	<textarea id="fileToCompile" style="width:400px;height:100px;">
