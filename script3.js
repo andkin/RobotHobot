@@ -13,6 +13,10 @@ let p=0,w=0;
 let pArr=[],wArr=[];
 let stopped = false;
 
+
+
+
+
 function getter(){//получить кол-во проводов и портов
 	p = document.getElementById("getPorts").value;
 	w = document.getElementById("getWires").value;
@@ -165,42 +169,42 @@ function stopRobot(){
 //addChain
 let theChain = [];
 let leftVal = 0, topVal = 0;
-function addToChain(){
+function addToChain(radios,moveField){
+	/*
 	let radios = document.getElementsByName("first");
 	let moveField = document.getElementById("moveto");
+	*/
 	let chainBody = document.getElementById("thechain");
 	let chainEntity = document.createElement("div");
 	chainEntity.className = "chainEntity";
 	let col;
 	//console.log(moveField.value.length);
-	if(moveField.value.length==0){
+	if(moveField.length==0){
 		chainEntity.style.backgroundImage="url(puzzle/white.png)";
-	}else if(isNaN(moveField.value)){
+	}else if(isNaN(moveField)){
 		for(col=0;col<c.length;col++)
-			if(c[col]==moveField.value){
+			if(c[col]==moveField){
 			chainEntity.style.backgroundImage="url(puzzle/"+colors[col]+".png)";
 			chainEntity.innerHTML = "go to "+colors[col]+"<br>and ";
 			}
 	}else {
-		if (moveField.value){
+		if (moveField){
 			chainEntity.style.backgroundImage="url(puzzle/white.png)";
-			chainEntity.innerHTML = "go to "+moveField.value+"<br>and ";
+			chainEntity.innerHTML = "go to "+moveField+"<br>and ";
 	}
 }
 	//добавление объекта
-	for(let i=0;i<radios.length;i++){
-		if(radios[i].checked){
-			if(moveField.value.length==0){
-				chainEntity.innerHTML += radios[i].value;
+			if(moveField.length==0){
+				chainEntity.innerHTML += radios;
 				theChain[chainBody.childNodes.length-1] = {
-				to:null, action:radios[i].value}
+				to:null, action:actions[radios]}
 			}else{
-				chainEntity.innerHTML += radios[i].value;
+				chainEntity.innerHTML += radios;
 				theChain[chainBody.childNodes.length-1] = {
-				to:moveField.value, action:radios[i].value}
+				to:moveField, action:actions[radios]}
 		}
-		}
-	}
+		
+	console.log(theChain);
 	//размещение
 	if(theChain.length>1){
 		leftVal += 80;
@@ -213,7 +217,6 @@ function addToChain(){
 	chainEntity.style.left = leftVal+"px";
 	chainEntity.style.top = topVal+"px";
 	chainBody.appendChild(chainEntity);
-	//console.log(theChain);
 }
 	let j=1;
 function clearChain(){
@@ -385,7 +388,7 @@ function unplug(){
 
 let currentPosition = 0;
 //go
-function handler(){
+function go_handler(){
 	stopped = false;
 		(function iterate(i) {
 						console.log("When started = "+i);			
