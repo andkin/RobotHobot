@@ -38,6 +38,7 @@ if(file.value != "Файл не выбран"){
 			if(temporaryArray.length>2){
 				IDE.innerHTML += "Функция не может принимать более одного параметра! <i>на строке "+stringCounter+"</i><br>";
 				errorsCounter++;
+				clearChain();
 				highlightError(stringCounter,"error");
 			}
 			console.log(temporaryArray);
@@ -48,14 +49,20 @@ if(file.value != "Файл не выбран"){
 					if(!errorsCounter)
 						addToChain(temporaryArray[0],temporaryArray[1]);
 				}else{
-					IDE.innerHTML += "Был указан неверный диапазон значений: <b style='color:red'>"+temporaryArray[1] + "</b><i> на строке "+stringCounter+"</i><br>";
+					if(temporaryArray[1]==""){
+						IDE.innerHTML += "Был указан неверный диапазон значений: <b style='color:red'>"+temporaryArray[1] + "</b><i> на строке "+stringCounter+"</i><br>";
+					}else{
+						IDE.innerHTML += "Укажите диапазон значений<i> на строке "+stringCounter+"</i><br>";
+					}
 					errorsCounter++;
+					clearChain();
 					highlightError(stringCounter,"error");
 				}
 			}else{
 				if(temporaryArray[0] != "программа"){
 					IDE.innerHTML += "Допущена ошибка в названии оператора: <b style='color:red'>"+temporaryArray[0] + "</b> <i> на строке "+stringCounter+"</i><br>";
 					errorsCounter++;
+					clearChain();
 					highlightError(stringCounter,"error");
 				}
 			}
@@ -77,7 +84,7 @@ if(file.value != "Файл не выбран"){
 };
 
 function highlightError(strnum,classname){
-	let stringHeight = 20;
+	let stringHeight = 19;
 	let highlighterBody = document.getElementById("errorHighlighter");
 	let highlighterElement = document.createElement("div");
 	highlighterElement.className = classname;
