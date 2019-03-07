@@ -16,9 +16,9 @@ let availColors = {
 function compile(){
 let file = document.getElementById("fileToCompile");
 let IDE = document.getElementById("otladchik");
-if(file.value != "		Файл не выбран"){
+if(file.value != "Файл не выбран"){
 	IDE.innerHTML = "<b style='color:green;'>Код был загружен... Идет проверка...</b><br>";
-	let code = file.value;
+	let code = file.innerHTML;
 	console.log(code);
 	let cursor = 0;
 	let stringCounter = 1;
@@ -38,8 +38,11 @@ if(file.value != "		Файл не выбран"){
 			if(temporaryArray.length>2){
 				IDE.innerHTML += "Функция не может принимать более одного параметра! <i>на строке "+stringCounter+"</i><br>";
 				errorsCounter++;
+				highlightError(stringCounter,"error");
 			}
 			console.log(temporaryArray);
+			temporaryArray[0] = temporaryArray[0].substr(3);
+			//console.log(temporaryArray[0]);
 			if(actions[temporaryArray[0]]){
 				if(availColors[temporaryArray[1]] || temporaryArray[1]>0 && temporaryArray[1]<6){
 					if(!errorsCounter)
@@ -47,11 +50,13 @@ if(file.value != "		Файл не выбран"){
 				}else{
 					IDE.innerHTML += "Был указан неверный диапазон значений: <b style='color:red'>"+temporaryArray[1] + "</b><i> на строке "+stringCounter+"</i><br>";
 					errorsCounter++;
+					highlightError(stringCounter,"error");
 				}
 			}else{
-				if(temporaryArray[0] != "		программа"){
+				if(temporaryArray[0] != "программа"){
 					IDE.innerHTML += "Допущена ошибка в названии оператора: <b style='color:red'>"+temporaryArray[0] + "</b> <i> на строке "+stringCounter+"</i><br>";
 					errorsCounter++;
+					highlightError(stringCounter,"error");
 				}
 			}
 			stringCounter++;
@@ -70,3 +75,16 @@ if(file.value != "		Файл не выбран"){
 }
 //alert(file.value.length);
 };
+
+function highlightError(strnum,classname){
+	let stringHeight = 20;
+	let highlighterBody = document.getElementById("errorHighlighter");
+	let highlighterElement = document.createElement("div");
+	highlighterElement.className = classname;
+	highlighterElement.style.position="absolute";
+	highlighterElement.style.width = "500px";
+	highlighterElement.style.height = stringHeight+"px";
+	highlighterElement.style.top = 250+stringHeight*strnum+"px";
+	highlighterBody.appendChild(highlighterElement);
+}
+

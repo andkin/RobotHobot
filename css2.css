@@ -20,7 +20,7 @@
 }
 #control{
 	width:500px;
-	height:650px;
+	height:950px;
 	border:3px double black;
 	position:absolute;
 	right:0px;
@@ -79,4 +79,10 @@
 	left:550px;
 	width:50px;
 	height:50px;
+}
+
+
+.error{
+	background:red;
+	opacity:0.2;
 }

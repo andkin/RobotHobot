@@ -1,5 +1,5 @@
 <?php
-   setlocale( LC_ALL, "fa_IR.UTF-8");
+   setlocale( LC_ALL, "en_US.UTF-8");
    header('content-type: text/html; charset=utf-8');
 ?>
 
@@ -50,13 +50,15 @@
 	<input type="button" onclick="clearChain();compile()" value="Компилировать"><br>
 	Отладчик:
 	<div id="IDE">
-	<textarea id="fileToCompile" style="width:400px;height:100px;">
+	<div id="errorHighlighter"></div>
+	<div id="fileToCompile" style="width:400px;height:300px;">
 		<?php
 
 	if(isset($_FILES['program']) && $_FILES['program']['name']!=null){
 		$content = file_get_contents($_FILES['program']['tmp_name']);
 		//$content = mb_convert_encoding($content, 'HTML-ENTITIES', "UTF-8");
 		$content = iconv('windows-1251', 'utf-8', $content);
+		$content = str_replace(array("\r\n", "\r", "\n"), "<br>", $content); 
 		echo $content;
 		unset($_FILES['program']);
 	}else{
@@ -64,7 +66,7 @@
 		//header("Location: index.php");
 	}
 ?>
-</textarea><br>
+</div><br>
 <div id="otladchik">
 </div>
 	</div>
