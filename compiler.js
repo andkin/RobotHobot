@@ -59,7 +59,7 @@ if(file.value != "Файл не выбран"){
 					highlightError(stringCounter,"error");
 				}
 			}else{
-				if(temporaryArray[0] != "программа"){
+				if(temporaryArray[0] != "	программа"){
 					IDE.innerHTML += "Допущена ошибка в названии оператора: <b style='color:red'>"+temporaryArray[0] + "</b> <i> на строке "+stringCounter+"</i><br>";
 					errorsCounter++;
 					clearChain();
@@ -91,7 +91,7 @@ function highlightError(strnum,classname){
 	highlighterElement.style.position="absolute";
 	highlighterElement.style.width = "500px";
 	highlighterElement.style.height = stringHeight+"px";
-	highlighterElement.style.top = 250+stringHeight*strnum+"px";
+	highlighterElement.style.top = 70+stringHeight*strnum+"px";
 	highlighterBody.appendChild(highlighterElement);
 }
 

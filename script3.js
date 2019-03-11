@@ -23,8 +23,9 @@ function getter(){//получить кол-во проводов и порто�
 
 	for(let i=0;i<w;i++)wArr[i]=colors[i];
 	for(let i=0;i<p;i++)pArr[i]=i+1;
-
+	eraseField();
 	drawField();
+	smooth_scrolling(800);
 }
 
 let newRobot = document.createElement("div");
@@ -68,7 +69,20 @@ function drawField(){
 	
 
 }
-
+function eraseField(){
+	let port = document.getElementById("ports");
+	let wire = document.getElementById("wires");
+	let space = document.getElementById("space");
+	while (port.firstChild) {
+		port.removeChild(port.firstChild);
+	}
+	while (wire.firstChild) {
+		wire.removeChild(wire.firstChild);
+	}
+	while (space.firstChild) {
+		space.removeChild(space.firstChild);
+	}
+}
 function priorityInterrupt()
 {
 	let logDIV = document.getElementById("logDIV");
@@ -180,42 +194,37 @@ function addToChain(radios,moveField){
 	let col;
 	//console.log(moveField.value.length);
 	if(moveField.length==0){
-		chainEntity.style.backgroundImage="url(puzzle/white.png)";
+		chainEntity.style.background="white";
 	}else if(isNaN(moveField)){
 		for(col=0;col<c.length;col++)
 			if(c[col]==moveField){
-			chainEntity.style.backgroundImage="url(puzzle/"+colors[col]+".png)";
-			chainEntity.innerHTML = "go to "+colors[col]+"<br>and ";
+			chainEntity.style.background=colors[col];
+			chainEntity.innerHTML = radios+" <br>"+colors[col];
 			}
 	}else {
 		if (moveField){
-			chainEntity.style.backgroundImage="url(puzzle/white.png)";
-			chainEntity.innerHTML = "go to "+moveField+"<br>and ";
+			chainEntity.style.background="white";
+			chainEntity.innerHTML = radios+" <br>"+moveField;
 	}
 }
 	//добавление объекта
 			if(moveField.length==0){
-				chainEntity.innerHTML += radios;
+				//chainEntity.innerHTML += radios;
 				theChain[chainBody.childNodes.length-1] = {
 				to:null, action:actions[radios]}
 			}else{
-				chainEntity.innerHTML += radios;
+				//chainEntity.innerHTML += radios;
 				theChain[chainBody.childNodes.length-1] = {
 				to:moveField, action:actions[radios]}
 		}
 		
 	console.log(theChain);
 	//размещение
-	if(theChain.length>1){
-		leftVal += 80;
-	}
-	if(theChain.length%6==0){
+	if(theChain.length%11==0){
 		chainBody.style.height = parseInt(chainBody.style.height)+80+"px"
-		topVal+=80;
-		leftVal=0;
+		
 	}
-	chainEntity.style.left = leftVal+"px";
-	chainEntity.style.top = topVal+"px";
+	
 	chainBody.appendChild(chainEntity);
 }
 	let j=1;

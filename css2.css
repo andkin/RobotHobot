@@ -1,7 +1,40 @@
+.pages{
+	margin:auto;
+	width:1500px;
+	height:800px;
+}
+#container1 .image{
+	position:absolute;
+	width:1500px;
+	height:110%;
+	background-image:url('backgrounds/first.jpg');
+	opacity:0.3;
+	background-size:100% 100%;
+	z-index:-1;
+}
+#container2 .image{
+	position:absolute;
+	width:1500px;
+	height:110%;
+	background-image:url('backgrounds/second.jpg');
+	opacity:0.3;
+	background-size:100% 100%;
+	z-index:-1;
+}
+
+
+
+
 #IDE{
-	width:500px;
-	height:300px;
+	width:1000px;
+	height:400px;
 	border:1px solid red;	
+}
+#otladchik{
+	background:black;
+	width:1000px;
+	height:100px;
+	color:white;
 }
 #ports{
 	display:inline-block;
@@ -19,24 +52,22 @@
 	float:left;
 }
 #control{
-	width:500px;
-	height:950px;
+	margin:auto;
+	width:1000px;
+	height:750px;
 	border:3px double black;
-	position:absolute;
-	right:0px;
-	top:0px;
 }
 #logFORM{
 	position:absolute;
-	top:700px;
+	top:1500px;
 	left:100px;
 }
 #thechain{
-	width:500px;
+	display:block;
+	width:1000px;
 	border:1px solid grey;
 }
 .chainEntity{
-	position:absolute;
 	text-align:center;
 	display:inline-block;
 	width:100px;
