@@ -62,6 +62,10 @@
 	min-height:750px;
 	border:3px double black;
 }
+#logDIV{
+	width:300px;
+	min-height:300px;
+}
 #logFORM{
 	margin-top:100px;
 }
@@ -91,6 +95,8 @@
 	border:1px solid black;
 }
 .space{
+	background:white;
+	opacity:0.7;
 	width:300px;
 	border:1px solid red;
 }
@@ -101,6 +107,7 @@
 	background-image:url(robot.gif);
 	background-size:100px 100px;
 }
+
 #unobj{
 	position:absolute;
 	width:100px;

@@ -234,9 +234,8 @@ function addToChain(radios,moveField){
 	
 	chainBody.appendChild(chainEntity);
 }
-	let j=1;
+	
 function clearChain(){
-	let logDIV = document.getElementById("logDIV");
 	let chainBody = document.getElementsByClassName("chainEntity");
 	let i= chainBody.length;
 	while (i!=0){
@@ -248,9 +247,6 @@ function clearChain(){
 	currentPosition = 0;
 	leftVal = 0;
 	topVal = 0;
-	j++;
-	logDIV.innerHTML+=getFormattedDate() + " Задача #" + (j)+"\r\n";
-	console.log(getFormattedDate() + " Задача #" + (j));
 }
 
 
@@ -261,8 +257,8 @@ function animate(finalTop,finalLeft, action){
 	let currentTop = parseInt(Robostyle.top);
 	let currentLeft = parseInt(Robostyle.left);
 	let topCompleted = 0;
-	//Time = (Math.abs(finalTop-currentTop)+Math.abs(finalLeft-currentLeft))/Speed +1500;
-	//console.log("Time to finish task : "+Time);
+	Time = (Math.abs(finalTop-currentTop)+Math.abs(finalLeft-currentLeft))*Speed +1500;
+	console.log("Time to finish task : "+Time);
 
 	//top
 	if(finalTop>currentTop){
@@ -338,7 +334,7 @@ function move(param, action){
 	let logDIV = document.getElementById("logDIV");
 	if(param!=null){
 		logDIV.innerHTML+=getFormattedDate() + " Going to "+param+" to "+action+"\n";
-	console.log(getFormattedDate() + " Going to "+param+" to "+action);
+		console.log(getFormattedDate() + " Going to "+param+" to "+action);
 	//let param = document.getElementById("move").value;
 	let Robostyle = newRobot.style;
 		if(isNaN(parseInt(param))){
@@ -422,7 +418,7 @@ function go_handler(){
 		        if (i < theChain.length-1) {
 		        	iterate(i + 1);
 		        }
-		    }, 7000);
+		    }, Time);
 		})(currentPosition);
 
 }

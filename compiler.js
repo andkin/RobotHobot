@@ -64,6 +64,10 @@ if(file.value != "Файл не выбран"){
 					errorsCounter++;
 					clearChain();
 					highlightError(stringCounter,"error");
+				}else{					
+					let logDIV = document.getElementById("logDIV");
+					logDIV.innerHTML+=getFormattedDate() + " Задача " + (temporaryArray[1])+"\r\n";
+					console.log(getFormattedDate() + " Задача " + (temporaryArray[1]));
 				}
 			}
 			stringCounter++;
