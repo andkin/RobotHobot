@@ -45,8 +45,8 @@
 
 		if(isset($_FILES['program']) && $_FILES['program']['name']!=null){
 			$content = file_get_contents($_FILES['program']['tmp_name']);
-			//$content = mb_convert_encoding($content, 'HTML-ENTITIES', "UTF-8");
-			$content = iconv('windows-1251', 'utf-8', $content);
+			//$content = iconv('windows-1251', 'utf-8', $content);
+			$content = mb_convert_encoding($content, 'HTML-ENTITIES', "UTF-8");
 			$content = str_replace(array("\r\n", "\r", "\n"), "<br>", $content); 
 			echo $content;
 			unset($_FILES['program']);

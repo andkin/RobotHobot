@@ -3,7 +3,7 @@ let actions = {
 	"Взять":"take",
 	"Положить":"put",
 	"Подключить":"plug",
-	"Отключить":"uplug"
+	"Отключить":"unplug"
 };
 let availColors = {
 	"r":"red",
@@ -59,7 +59,8 @@ if(file.value != "Файл не выбран"){
 					highlightError(stringCounter,"error");
 				}
 			}else{
-				if(temporaryArray[0] != "	программа"){
+				temporaryArray[0] = temporaryArray[0].replace(/\s+/g, '');
+				if(temporaryArray[0] != "программа"){
 					IDE.innerHTML += "Допущена ошибка в названии оператора: <b style='color:red'>"+temporaryArray[0] + "</b> <i> на строке "+stringCounter+"</i><br>";
 					errorsCounter++;
 					clearChain();
