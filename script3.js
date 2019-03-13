@@ -257,7 +257,7 @@ function animate(finalTop,finalLeft, action){
 	let currentTop = parseInt(Robostyle.top);
 	let currentLeft = parseInt(Robostyle.left);
 	let topCompleted = 0;
-	Time = (Math.abs(finalTop-currentTop)+Math.abs(finalLeft-currentLeft))*Speed +1500;
+	Time = (Math.abs(finalTop-currentTop)+Math.abs(finalLeft-currentLeft))*(Speed+5)+1000;
 	console.log("Time to finish task : "+Time);
 
 	//top
