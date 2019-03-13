@@ -27,17 +27,20 @@
 <div id="container1" class="pages">
 <div class="image"></div>
 	<div id="control">
-		
-		<form enctype='multipart/form-data' method="post" action="index.php">
-		Загрузить код программы<br>
-		<input type="file" name="program">
-		<input type="submit" value="Загрузить">
-		</form>
-		<input type="button" onclick="clearChain();compile()" value="Компилировать"><br>
-		Отладчик:
+		<div style="background:white;">
+			<form enctype='multipart/form-data' method="post" action="index.php">
+			Загрузить код программы<br>
+			<input type="file" name="program">
+			<input type="submit" value="Загрузить">
+			</form>
+			<input type="button" onclick="clearChain();compile()" value="Компилировать"><br>
+			Отладчик:
+		</div>
 		<div id="IDE">
 		<div id="errorHighlighter"></div>
-		<div id="fileToCompile" style="width:400px;height:300px;">
+		<div id="fileToCompile" style="width:1000px;min-height:300px;">
+		<div id="idebackground"></div>
+		<div id="code">
 			<?php
 
 		if(isset($_FILES['program']) && $_FILES['program']['name']!=null){
@@ -52,6 +55,7 @@
 			//header("Location: index.php");
 		}
 	?>
+	</div>
 	</div><br>
 	<div id="otladchik">
 	</div>
@@ -70,7 +74,7 @@
 					</div>
 	<br>
 	<input type="submit" value="Proceed" id="smooth" onclick="getter()">
-	<div id="thechain" style="height:80px;">
+	<div id="thechain" style="">
 	</div>
 	</div>
 	
@@ -93,13 +97,15 @@
 		<div id="wires"></div>
 	</div>
 	<div id="holding"></div>
-</div>
-
-<form id="logFORM" method="post" action="">
+	
+	<form id="logFORM" method="post" action="">
 <textarea name="logdata" id="logDIV">
 </textarea>
 <input type="submit" id="goLOG" value="LOG">
 </form>
+</div>
+
+
 
 </body>
 </html>

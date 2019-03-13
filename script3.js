@@ -2,6 +2,12 @@ window.onload = function(){
 
 let holding = document.getElementById("holding");
 holding.style.backgroundColor = "white";
+
+//выставления размера фона для кода
+let parentEl = document.getElementById("fileToCompile");
+let backgroundEl = document.getElementById("idebackground");
+backgroundEl.style.height = parentEl.scrollHeight+"px";
+
 };
 
 let colors = ["red","green","blue","orange","purple","yellow"];
@@ -25,7 +31,8 @@ function getter(){//получить кол-во проводов и порто�
 	for(let i=0;i<p;i++)pArr[i]=i+1;
 	eraseField();
 	drawField();
-	smooth_scrolling(800);
+	let contLoc = document.getElementById("container2").offsetTop;
+	smooth_scrolling(contLoc);
 }
 
 let newRobot = document.createElement("div");
@@ -221,7 +228,7 @@ function addToChain(radios,moveField){
 	console.log(theChain);
 	//размещение
 	if(theChain.length%11==0){
-		chainBody.style.height = parseInt(chainBody.style.height)+80+"px"
+		//chainBody.style.height = parseInt(chainBody.style.height)+80+"px"
 		
 	}
 	

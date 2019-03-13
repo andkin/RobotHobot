@@ -14,7 +14,7 @@ let availColors = {
 	'y':'yellow'
 };
 function compile(){
-let file = document.getElementById("fileToCompile");
+let file = document.getElementById("code");
 let IDE = document.getElementById("otladchik");
 if(file.value != "Файл не выбран"){
 	IDE.innerHTML = "<b style='color:green;'>Код был загружен... Идет проверка...</b><br>";
@@ -84,7 +84,7 @@ if(file.value != "Файл не выбран"){
 };
 
 function highlightError(strnum,classname){
-	let stringHeight = 19;
+	let stringHeight = 18.5;
 	let highlighterBody = document.getElementById("errorHighlighter");
 	let highlighterElement = document.createElement("div");
 	highlighterElement.className = classname;
@@ -92,6 +92,7 @@ function highlightError(strnum,classname){
 	highlighterElement.style.width = "500px";
 	highlighterElement.style.height = stringHeight+"px";
 	highlighterElement.style.top = 70+stringHeight*strnum+"px";
+	highlighterElement.style.zIndex = "2";
 	highlighterBody.appendChild(highlighterElement);
 }
 
