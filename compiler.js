@@ -13,7 +13,10 @@ let availColors = {
 	'p':'purple',
 	'y':'yellow'
 };
+
 function compile(){
+	
+let translator = document.getElementById("pseudocodecontent");
 let file = document.getElementById("code");
 let IDE = document.getElementById("otladchik");
 if(file.value != "Файл не выбран"){
@@ -48,7 +51,7 @@ if(file.value != "Файл не выбран"){
 				if(availColors[temporaryArray[1]] || temporaryArray[1]>0 && temporaryArray[1]<6){
 					if(!errorsCounter){
 						addToChain(temporaryArray[0],temporaryArray[1]);
-						let translator = document.getElementById("pseudocodecontent");
+						//let translator = document.getElementById("pseudocodecontent");
 						translator.innerHTML += "addToChain('"+temporaryArray[0]+"',"+temporaryArray[1]+")<br>";
 						//выставление размера фона для транслятора
 						let parentEl = document.getElementById("pseudocode");
@@ -88,6 +91,10 @@ if(file.value != "Файл не выбран"){
 			}
 		}
 		cursor++;
+	}
+	for(let i=0;i<theChain.length;i++){
+		//let translator = document.getElementById("pseudocodecontent");
+		translator.innerHTML += "move('"+theChain[i].to+"',"+theChain[i].action+")<br>";
 	}
 }else{
 	IDE.innerHTML = "<b style='color:red;'>Вы не выбрали файл!</b>";
