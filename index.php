@@ -81,7 +81,6 @@
 </div>
 
 <div id="container2" class="pages">
-<div class="image"></div>
 <br><br>
 <input type="text" placeholder="Розетки" id="getPorts" value="5">
 <input type="text" placeholder="Провода" id="getWires" value="5">
@@ -103,6 +102,15 @@
 </textarea>
 <input type="submit" id="goLOG" value="LOG">
 </form>
+</div>
+
+<div id="container3" class="pages">
+	<div id="pseudocode">
+		<div class="background">
+		</div>
+		<div id="pseudocodecontent">
+		</div>
+	</div>
 </div>
 
 

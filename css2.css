@@ -14,6 +14,11 @@
 	background-size:100% 100%;
 	background-attachment:fixed;
 }
+#container3 {
+	background-image:url('backgrounds/third.jpg');
+	background-size:100% 100%;
+	background-attachment:fixed;
+}
 
 #idebackground{
 	position:absolute;
@@ -128,3 +133,31 @@
 	background:red;
 	opacity:0.2;
 }
+
+
+
+
+
+#pseudocode{
+	margin:auto;
+	width:900px;
+	height:900px;
+}
+#pseudocode .background{
+	position:absolute;
+	background:grey;
+	opacity:0.5;	
+	width:900px;
+	height:900px;
+	z-index:0;
+}
+#pseudocodecontent{
+	position:relative;
+	padding:100px;
+	color:white;
+	font:20px calibri;
+	z-index:1;
+}
+
+
+

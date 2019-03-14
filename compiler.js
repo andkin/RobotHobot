@@ -46,8 +46,11 @@ if(file.value != "Файл не выбран"){
 			//console.log(temporaryArray[0]);
 			if(actions[temporaryArray[0]]){
 				if(availColors[temporaryArray[1]] || temporaryArray[1]>0 && temporaryArray[1]<6){
-					if(!errorsCounter)
+					if(!errorsCounter){
 						addToChain(temporaryArray[0],temporaryArray[1]);
+						let translator = document.getElementById("pseudocodecontent");
+						translator.innerHTML += "addToChain('"+temporaryArray[0]+"',"+temporaryArray[1]+")<br>";
+					}
 				}else{
 					if(temporaryArray[1]==""){
 						IDE.innerHTML += "Был указан неверный диапазон значений: <b style='color:red'>"+temporaryArray[1] + "</b><i> на строке "+stringCounter+"</i><br>";
