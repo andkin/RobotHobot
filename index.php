@@ -38,7 +38,7 @@
 		</div>
 		<div id="IDE">
 		<div id="errorHighlighter"></div>
-		<div id="fileToCompile" style="width:1000px;min-height:300px;">
+		<div id="fileToCompile">
 		<div id="idebackground"></div>
 		<div id="code">
 			<?php
@@ -106,7 +106,7 @@
 
 <div id="container3" class="pages">
 	<div id="pseudocode">
-		<div class="background">
+		<div id="pseudocodebackground">
 		</div>
 		<div id="pseudocodecontent">
 		</div>

@@ -50,6 +50,10 @@ if(file.value != "Файл не выбран"){
 						addToChain(temporaryArray[0],temporaryArray[1]);
 						let translator = document.getElementById("pseudocodecontent");
 						translator.innerHTML += "addToChain('"+temporaryArray[0]+"',"+temporaryArray[1]+")<br>";
+						//выставление размера фона для транслятора
+						let parentEl = document.getElementById("pseudocode");
+						let backgroundEl = document.getElementById("pseudocodebackground");
+						setHeight(parentEl,backgroundEl);
 					}
 				}else{
 					if(temporaryArray[1]==""){

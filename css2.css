@@ -20,6 +20,11 @@
 	background-attachment:fixed;
 }
 
+#fileToCompile{
+	width:1000px;
+	min-height:300px;
+}
+
 #idebackground{
 	position:absolute;
 	width:1000px;
@@ -141,22 +146,22 @@
 #pseudocode{
 	margin:auto;
 	width:900px;
-	height:900px;
+	min-height:900px;
 }
-#pseudocode .background{
+#pseudocodebackground{
 	position:absolute;
 	background:grey;
 	opacity:0.5;	
 	width:900px;
-	height:900px;
+	height:100%;
 	z-index:0;
 }
 #pseudocodecontent{
 	position:relative;
 	padding:100px;
+	height:100%;
 	color:white;
 	font:20px calibri;
-	z-index:1;
 }
 
 

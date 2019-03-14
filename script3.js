@@ -6,9 +6,12 @@ holding.style.backgroundColor = "white";
 //выставления размера фона для кода
 let parentEl = document.getElementById("fileToCompile");
 let backgroundEl = document.getElementById("idebackground");
-backgroundEl.style.height = parentEl.scrollHeight+"px";
+setHeight(parentEl,backgroundEl);
 
 };
+function setHeight(parentEl,backgroundEl){
+	backgroundEl.style.height = parentEl.scrollHeight+"px";
+}
 
 let colors = ["red","green","blue","orange","purple","yellow"];
 let c = ["r","g","b","o","p","y"];
